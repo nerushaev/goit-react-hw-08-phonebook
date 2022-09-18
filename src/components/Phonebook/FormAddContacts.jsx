@@ -36,7 +36,7 @@ export default class FormAddContacts extends Component {
     return (
       <form onSubmit={handleSubmit}>
             <div className="input-field">
-              <label htmlFor={nameId}>Ім'я</label>
+              <label htmlFor={nameId}>Name</label>
               <input
               name="name"
               id={nameId}
@@ -49,7 +49,7 @@ export default class FormAddContacts extends Component {
             />
           </div>
             <div className="input-field">
-              <label htmlFor={numberId}>Контактний номер</label>
+              <label htmlFor={numberId}>Number</label>
               <input
               name="number"
               id={numberId}
@@ -61,7 +61,7 @@ export default class FormAddContacts extends Component {
               required
             />
             </div>
-            <button className="submit-btn">Додати контакт</button>
+            <button className="submit-btn">Add contact</button>
           </form>
     )
   }
