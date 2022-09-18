@@ -3,7 +3,6 @@ import './Phonebook.css'
 import FormAddContacts from './FormAddContacts';
 import ContactsList from './ContactsList'
 import { nanoid } from 'nanoid';
-import { result } from 'lodash';
 
 export default class Phonebook extends Component {
   state = {
