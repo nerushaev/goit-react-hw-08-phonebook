@@ -1,0 +1,73 @@
+.title {
+  text-align: center;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 160px;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+.input-field {
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.phonebook-contaner {
+  width: 300px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid lightsteelblue;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  width: 120px;
+  height: 40px;
+  border: 1px solid lightsteelblue;
+  border-radius: 5px;
+  background-color: white;
+  margin-bottom: 30px;
+}
+
+.block-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete-btn {
+  border: 1px solid lightsteelblue;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.contacts-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.contacts-list {
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
