@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Phonebook.css'
-import FormAddContacts from './FormAddContacts';
-import ContactsList from './ContactsList'
+import FormAddContacts from '../FormAddContacts/FormAddContacts';
+import ContactsList from '../ContactsList/ContactsList'
 import { nanoid } from 'nanoid';
 
 export default class Phonebook extends Component {
