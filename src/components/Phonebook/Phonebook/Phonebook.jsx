@@ -15,6 +15,23 @@ export default class Phonebook extends Component {
     filter: '',
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.state;
+    if (prevState.contacts !== contacts) {
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+    }
+  }
+
+    componentDidMount() {
+      const contacts = JSON.parse(localStorage.getItem("contacts"));
+      if (contacts?.length) {
+      this.setState({
+        contacts,
+      })
+      }
+
+  }
+
 
   addContacts = (name, number) => {
       const newContacts = {
@@ -31,7 +48,6 @@ export default class Phonebook extends Component {
       const result = normalizeContactsName.includes(normalizeName) || number.includes(contacts.number)
       return result;
     })
-    console.log(filteredContacts);
     if (filteredContacts.length === 0) {
           this.setState((prevState) => {
       return {
