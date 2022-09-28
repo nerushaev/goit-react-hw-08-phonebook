@@ -43,19 +43,19 @@ export default class Phonebook extends Component {
     const { contacts } = this.state;
     
     const normalizeName = name.toLowerCase();
-    const filteredContacts = contacts.filter(({ name, number }) => {
-      const normalizeContactsName = name.toLowerCase();
-      const result = normalizeContactsName.includes(normalizeName) || number.includes(contacts.number)
-      return result;
+    const filteredContacts = contacts.find(({ name, number }) => {
+    const normalizeContactsName = name.toLowerCase();
+    const result = normalizeContactsName.includes(normalizeName) || number.includes(contacts.number)
+    return result;
     })
-    if (filteredContacts.length === 0) {
-          this.setState((prevState) => {
+    if (filteredContacts) {
+      alert(`${newContacts.name} is already in contacts!`)
+    } else {
+      this.setState((prevState) => {
       return {
       contacts: [...prevState.contacts, newContacts],
     }
   })
-    } else {
-      alert(`${newContacts.name} is already in contacts!`)
   }
 }
 
