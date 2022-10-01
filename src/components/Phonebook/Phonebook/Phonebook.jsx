@@ -47,7 +47,7 @@ const Phonebook = () => {
 }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setFilter(value)
   }
 
