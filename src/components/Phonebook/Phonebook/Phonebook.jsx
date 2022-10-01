@@ -1,46 +1,35 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Phonebook.css'
 import FormAddContacts from '../FormAddContacts/FormAddContacts';
 import ContactsList from '../ContactsList/ContactsList'
 import { nanoid } from 'nanoid';
 
-export default class Phonebook extends Component {
-  state = {
-    contacts: [
+const Phonebook = () => {
+  const [contacts, setContacts] = useState([
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
     {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  ],
-    filter: '',
-  }
+    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'}
+  ]);
+  const [filter, setFilter] = useState('');
 
-  componentDidUpdate(prevProps, prevState) {
-    const { contacts } = this.state;
-    if (prevState.contacts !== contacts) {
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
-  }
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
-    componentDidMount() {
-      const contacts = JSON.parse(localStorage.getItem("contacts"));
-      if (contacts?.length) {
-      this.setState({
-        contacts,
-      })
+  useEffect(() => {
+    const contacts = JSON.parse(localStorage.getItem("contacts"));
+    if (contacts?.length) {
+      setContacts(contacts);
       }
+  }, []);
 
-  }
-
-
-  addContacts = (name, number) => {
+  const addContacts = (name, number) => {
       const newContacts = {
       id: nanoid(),
       name,
       number,
       }
-    
-    const { contacts } = this.state;
     
     const normalizeName = name.toLowerCase();
     const filteredContacts = contacts.find(({ name, number }) => {
@@ -51,28 +40,21 @@ export default class Phonebook extends Component {
     if (filteredContacts) {
       alert(`${newContacts.name} is already in contacts!`)
     } else {
-      this.setState((prevState) => {
-      return {
-      contacts: [...prevState.contacts, newContacts],
-    }
-  })
+      return setContacts((prev) => {
+        return [...prev, newContacts]
+      })
   }
 }
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    })
+    setFilter(value)
   }
 
-  getFilteredContacts = (e) => {
-    const { contacts, filter } = this.state;
-
+  const getFilteredContacts = (e) => {
     if (!filter) {
       return contacts;
     }
-
     const normalizeFilter = filter.toLowerCase();
     const filteredContacts = contacts.filter(({ name, number }) => {
       const normalizeName = name.toLowerCase();
@@ -82,33 +64,30 @@ export default class Phonebook extends Component {
     return filteredContacts;
   }
 
-  removeContact = (id) => {
-    this.setState((prev) => {
-      const newContacts = prev.contacts.filter((item) => item.id !== id);
-      return {
-        contacts: newContacts,
-      }
+  const removeContact = (id) => {
+    return setContacts((prev) => {
+      const newContacts = prev.filter((item) => item.id !== id);
+      return newContacts;
     })
   }
-  
 
-  render() {
-    const { filter } = this.state;
-    const contacts = this.getFilteredContacts();
+  const FilteredContacts = getFilteredContacts();
+  
     return (
       <>
       <div className="phonebook-contaner">
         <h2 className="title">Phonebook</h2>
         <div className="block">
-            <FormAddContacts onSubmit={this.addContacts}/>
+            <FormAddContacts onSubmit={addContacts}/>
         </div>
         </div>
         <div className="block-info">
           <label htmlFor="filter" className="filter-label">Search</label>
-          <input type="text" name="filter" value={filter} onChange={this.handleChange}/>
-          <ContactsList items={contacts} removeContact={this.removeContact}/>
+          <input type="text" name="filter" value={filter} onChange={handleChange}/>
+          <ContactsList items={FilteredContacts} removeContact={removeContact}/>
         </div>
       </>
     )
-  }
 }
+
+export default Phonebook;
