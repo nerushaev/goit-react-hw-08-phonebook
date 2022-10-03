@@ -4,25 +4,20 @@ import FormAddContacts from '../FormAddContacts/FormAddContacts';
 import ContactsList from '../ContactsList/ContactsList'
 import { nanoid } from 'nanoid';
 
+const defaultContacts = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' }
+];
+
 const Phonebook = () => {
-  const [contacts, setContacts] = useState([
-    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'}
-  ]);
+  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem("contacts")) || defaultContacts);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
-
-  useEffect(() => {
-    const contacts = JSON.parse(localStorage.getItem("contacts"));
-    if (contacts?.length) {
-      setContacts(contacts);
-      }
-  }, []);
 
   const addContacts = (name, number) => {
       const newContacts = {
@@ -38,12 +33,12 @@ const Phonebook = () => {
     return result;
     })
     if (filteredContacts) {
-      alert(`${newContacts.name} is already in contacts!`)
-    } else {
+      alert(`${newContacts.name} is already in contacts!`);
+      return;
+    } 
       return setContacts((prev) => {
         return [...prev, newContacts]
       })
-  }
 }
 
   const handleChange = (e) => {
@@ -72,7 +67,6 @@ const Phonebook = () => {
   }
 
   const FilteredContacts = getFilteredContacts();
-  
     return (
       <>
       <div className="phonebook-contaner">
