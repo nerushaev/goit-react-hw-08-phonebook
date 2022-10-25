@@ -1,49 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './Phonebook.css'
 import FormAddContacts from '../FormAddContacts/FormAddContacts';
 import ContactsList from '../ContactsList/ContactsList'
-import { nanoid } from 'nanoid';
-
-const defaultContacts = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' }
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { getContacts } from 'redux/contacts/contacts-selectors';
+import { getFilter } from 'redux/filter/filter-selectors';
+import { addContacts, removeContacts } from 'redux/contacts/contacts-slice';
+import { setFilter } from 'redux/filter/filter-slice';
 
 const Phonebook = () => {
-  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem("contacts")) || defaultContacts);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(getContacts)
+  const filter = useSelector(getFilter)
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  const addContacts = (name, number) => {
-      const newContacts = {
-      id: nanoid(),
-      name,
-      number,
-      }
-    
-    const normalizeName = name.toLowerCase();
-    const filteredContacts = contacts.find(({ name, number }) => {
-    const normalizeContactsName = name.toLowerCase();
-    const result = normalizeContactsName.includes(normalizeName) || number.includes(contacts.number)
-    return result;
-    })
-    if (filteredContacts) {
-      alert(`${newContacts.name} is already in contacts!`);
-      return;
-    } 
-      return setContacts((prev) => {
-        return [...prev, newContacts]
-      })
+  const onAddContacts = (contact) => {
+    if (isDuplicate(contact)) {
+      return alert(`${contacts.name} ${contacts.number} is already on the site!`);
+    }
+    const action = addContacts(contact);
+    dispatch(action);
 }
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setFilter(value)
+    dispatch(setFilter(value));
   }
 
   const getFilteredContacts = (e) => {
@@ -60,10 +40,13 @@ const Phonebook = () => {
   }
 
   const removeContact = (id) => {
-    return setContacts((prev) => {
-      const newContacts = prev.filter((item) => item.id !== id);
-      return newContacts;
-    })
+    const action = removeContacts(id);
+    dispatch(action);
+  }
+
+  const isDuplicate = ({ name, number }) => {
+    const result = contacts.find((item) => item.name === name && item.number === number)
+    return result;
   }
 
   const FilteredContacts = getFilteredContacts();
@@ -72,7 +55,7 @@ const Phonebook = () => {
       <div className="phonebook-contaner">
         <h2 className="title">Phonebook</h2>
         <div className="block">
-            <FormAddContacts onSubmit={addContacts}/>
+            <FormAddContacts onSubmit={onAddContacts}/>
         </div>
         </div>
         <div className="block-info">

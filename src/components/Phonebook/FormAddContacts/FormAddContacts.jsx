@@ -24,11 +24,9 @@ const FormAddContacts = ({onSubmit}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(name, number)
+    onSubmit({name, number})
     setName('');
     setNumber('');
-    
-    
   }
   
     return (
