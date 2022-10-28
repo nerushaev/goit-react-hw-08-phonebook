@@ -1,6 +1,15 @@
-export const getContacts = store => store.contacts;
+import { getFilter } from "redux/filter/filter-selectors";
 
-export const getFilteredContacts = (contacts, filter) => {
+export const getContacts = state => state.contacts;
+
+export const selectIsLoading = state => state.contacts.isLoading;
+
+export const selectError = state => state.contacts.error;
+
+export const getFilteredContacts = state => {
+    const filter = getFilter(state);
+    const contacts = getContacts(state);
+  
     if (!filter) {
       return contacts;
     }

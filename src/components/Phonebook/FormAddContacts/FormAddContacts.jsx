@@ -1,31 +1,16 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
-import { addContacts } from 'redux/contacts/contacts-slice';
+import { addContact } from 'redux/contacts/contacts-operation';
 import { useDispatch } from 'react-redux';
 
-const FormAddContacts = ({contacts}) => {
-
+const FormAddContacts = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
   
   const numberId = nanoid();
   const nameId = nanoid();
-
-  const dispatch = useDispatch();
-
-  const onAddContacts = (contact) => {
-    if (isDuplicate(contact)) {
-      return alert(`${contacts.name} ${contacts.number} is already on the site!`);
-    }
-    const action = addContacts(contact);
-    dispatch(action);
-    }
-  
-  const isDuplicate = ({ name, number }) => {
-    const result = contacts.find((item) => item.name === name && item.number === number)
-    return result;
-  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -41,7 +26,7 @@ const FormAddContacts = ({contacts}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddContacts({name, number})
+    dispatch(addContact({name, number}))
     setName('');
     setNumber('');
   }
