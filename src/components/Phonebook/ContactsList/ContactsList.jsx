@@ -2,7 +2,6 @@ import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
 import { removeContact } from 'redux/contacts/contacts-operation';
-import { Loader } from '../Loader/Loader';
 
 export default function ContactsList() {
   const contacts = useSelector(getFilteredContacts);
