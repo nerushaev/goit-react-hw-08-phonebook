@@ -3,6 +3,9 @@ import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
 import { addContact } from 'redux/contacts/contacts-operation';
 import { useDispatch } from 'react-redux';
+import { Form, Label, Input, Button } from '../Fields/Fields';
+import { Container } from '../Container/Container.styled';
+
 
 const FormAddContacts = () => {
   const [name, setName] = useState('');
@@ -32,10 +35,10 @@ const FormAddContacts = () => {
   }
   
     return (
-      <form onSubmit={handleSubmit}>
-            <div className="input-field">
-              <label htmlFor={nameId}>Name</label>
-              <input
+      <Form onSubmit={handleSubmit}>
+            <Container className="input-field">
+              <Label htmlFor={nameId}>Name</Label>
+              <Input
               name="name"
               id={nameId}
               onChange={handleChange}
@@ -45,10 +48,10 @@ const FormAddContacts = () => {
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
             />
-          </div>
-            <div className="input-field">
-              <label htmlFor={numberId}>Number</label>
-              <input
+          </Container>
+            <Container className="input-field">
+              <Label htmlFor={numberId}>Number</Label>
+              <Input
               name="number"
               id={numberId}
               onChange={handleChange}
@@ -58,9 +61,9 @@ const FormAddContacts = () => {
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
             />
-            </div>
-            <button className="submit-btn">Add contact</button>
-          </form>
+            </Container>
+            <Button className="submit-btn">Add contact</Button>
+          </Form>
     )
 }
 
