@@ -8,7 +8,7 @@ import { setFilter } from 'redux/filter/filter-slice';
 import { fetchContacts } from 'redux/contacts/contacts-operation';
 import { selectIsLoading, selectError } from 'redux/contacts/contacts-selectors';
 import { Loader } from '../../components/Phonebook/Loader/Loader';
-import { Input, Label, Form } from 'components/Phonebook/Fields/Fields';
+import { Input, Label } from 'components/Phonebook/Fields/Fields';
 import { Container } from 'components/Phonebook/Container/Container.styled';
 import { Title } from 'components/Phonebook/Title/Title.styled';
 import { Navigate } from 'react-router';
