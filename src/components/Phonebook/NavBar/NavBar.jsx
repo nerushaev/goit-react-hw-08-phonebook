@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom"
 import styled from "styled-components";
-import { getIsLogin } from "redux/auth/auth-selectors";
-import { useSelector } from "react-redux";
+import {useAuth} from "hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { logout } from "redux/auth/auth-operations";
+import NavUserInfo from "../NavUserInfo/NavUserInfo";
 
 const StyledLink = styled(NavLink)`
   display: block;
@@ -16,12 +18,19 @@ const Navigation = styled.nav`
 `;
 
 export default function NavAuth({ children }) {
-  const isUserLogin = useSelector(getIsLogin);
+  const isUserLogin = useAuth();
+  const dispatch = useDispatch();
+
+  const onLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+  }
 
   return (
     <Navigation>
       {children}
-      {isUserLogin && <StyledLink to="/">Logout</StyledLink>}
+      {isUserLogin && <NavUserInfo />}
+      {isUserLogin && <StyledLink onClick={onLogout} to="/">Logout</StyledLink>}
       {!isUserLogin && <StyledLink to="/register">Register</StyledLink>}
       {!isUserLogin &&  <StyledLink to="/login">Login</StyledLink>}
       </Navigation>

@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { Form, Label, Input, Button } from '../Fields/Fields';
 import { Container } from '../Container/Container.styled';
 
-
 const FormAddContacts = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');

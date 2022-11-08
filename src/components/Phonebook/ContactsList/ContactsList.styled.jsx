@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const List = styled.ul`
-  width: 520px;
+  width: 320px;
   list-style: none;
   margin: 0 auto;
   padding: 0;
@@ -18,7 +18,8 @@ export const Item = styled.li`
 `;
 
 export const DeleteMessage = styled.span`
+  font-size: 14px;
   position: absolute;
   top: 0;
-  right: -130px;
+  right: -110px;
 `;

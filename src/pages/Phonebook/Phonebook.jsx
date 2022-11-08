@@ -11,15 +11,29 @@ import { Loader } from '../../components/Phonebook/Loader/Loader';
 import { Input, Label, Form } from 'components/Phonebook/Fields/Fields';
 import { Container } from 'components/Phonebook/Container/Container.styled';
 import { Title } from 'components/Phonebook/Title/Title.styled';
-import { getIsLogin } from 'redux/auth/auth-selectors';
 import { Navigate } from 'react-router';
-import NavAuth from 'components/Phonebook/NavAuth/NavAuth';
+import NavAuth from 'components/Phonebook/NavBar/NavBar';
+import { useAuth } from 'hooks/useAuth';
+import styled from 'styled-components';
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+
 const Phonebook = () => {
   const contacts = useSelector(getContacts)
   const filter = useSelector(getFilter)
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  const isUserLogin = useSelector(getIsLogin)
+  const isUserLogin = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,9 +45,11 @@ const Phonebook = () => {
   }
 
   const handleChange = (e) => {
+    e.preventDefault();
     const { value } = e.target;
     dispatch(setFilter(value));
   }
+
 
   return (
       <>
@@ -42,13 +58,14 @@ const Phonebook = () => {
         </NavAuth>
         <Container>
             <FormAddContacts contacts={contacts} />
-        </Container>
-        <Form className="block-info">
-          <Label htmlFor="filter" className="filter-label">Search</Label>
-          <Input filter type="text" name="filter" value={filter} onChange={handleChange} />
+      </Container>
+      <FormContainer>
+          <Label htmlFor="filter">Search</Label>
+          <Input filterInput type="text" name="filter" value={filter} onChange={handleChange} />
+      </FormContainer>
           {isLoading && !error && <Loader />}
           <ContactsList/>
-      </Form>
+      
       </>
     )
 }

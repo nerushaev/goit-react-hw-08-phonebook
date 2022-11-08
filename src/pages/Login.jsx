@@ -3,7 +3,7 @@ import { Input, Label, Form, Button } from "components/Phonebook/Fields/Fields";
 import { Title } from "components/Phonebook/Title/Title.styled";
 import { nanoid } from "nanoid";
 import { useMemo } from "react";
-import NavAuth from "components/Phonebook/NavAuth/NavAuth";
+import NavAuth from "components/Phonebook/NavBar/NavBar";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "redux/auth/auth-operations";

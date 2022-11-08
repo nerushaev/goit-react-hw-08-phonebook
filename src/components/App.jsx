@@ -1,16 +1,15 @@
-import Phonebook from "../pages/Phonebook/Phonebook";
-import { Routes, Route } from 'react-router-dom';
-import Home from "pages/Home";
-import Register from "pages/Register";
-import Login from "pages/Login";
+import UserRoutes from "UserRoutes";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { current } from "redux/auth/auth-operations";
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(current());
+  }, [dispatch])
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="register" element={<Register />} />
-      <Route path="login" element={<Login />} />
-      <Route path="/contacts" element={<Phonebook />} />
-    </Routes>
+    <UserRoutes />
   );
 };

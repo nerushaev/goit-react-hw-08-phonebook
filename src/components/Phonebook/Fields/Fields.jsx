@@ -23,7 +23,7 @@ export const Input = styled.input`
   width: 340px;
   height: 30px;
   border: none;
-  margin-bottom: ${p => p.filter ? "30px" : "10px"};
+  margin-bottom: ${p => p.filterInput ? "30px" : "10px"};
   border: 1px solid black;
   border-radius: 5px;
 `;
@@ -32,7 +32,7 @@ export const Button = styled.button`
   display: inline-block;
   font-weight: 500;
   border: none;
-  border-radius: 5px;
+  border-radius: ${p => p.delete ? "2px" : "5px"};
   cursor: pointer;
   color: black;
   background-color: rgb(220,220,220);
@@ -42,6 +42,6 @@ export const Button = styled.button`
   :hover, :focus {
     background-color:	#008000;
     color: white;
-    border-radius: 10px;
+    border-radius: ${p => p.delete ? "5px" : "10px"};
   }
 `;

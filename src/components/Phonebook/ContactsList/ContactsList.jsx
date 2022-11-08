@@ -33,5 +33,4 @@ export default function ContactsList() {
 
 ContactsList.propTypes = {
   items: propTypes.array,
-  removeContact: propTypes.func
 }
