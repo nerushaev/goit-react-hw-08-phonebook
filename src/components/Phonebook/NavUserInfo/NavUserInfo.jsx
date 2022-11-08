@@ -16,7 +16,7 @@ export default function NavUserInfo() {
 
   return (
     <UserContainer>
-      <UserText>{`Welcome back, ${email}`}</UserText>
+      <UserText>{`Welcome, ${email}`}</UserText>
     </UserContainer>
   )
 }
