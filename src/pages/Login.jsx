@@ -2,7 +2,7 @@ import { Container } from "components/Phonebook/Container/Container.styled";
 import { Input, Label, Form, Button } from "components/Phonebook/Fields/Fields";
 import { Title } from "components/Phonebook/Title/Title.styled";
 import { nanoid } from "nanoid";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import NavAuth from "components/Phonebook/NavBar/NavBar";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -10,11 +10,14 @@ import { login } from "redux/auth/auth-operations";
 import { getIsLogin } from "redux/auth/auth-selectors";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
+import ErrorMessage from "components/Phonebook/ErrorMessage/ErrorMessage";
+import { getError } from "redux/auth/auth-selectors";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const error = useSelector(getError);
 
   const emailId = useMemo(() => nanoid(), []);
   const passwordId = useMemo(() => nanoid(), []);
@@ -72,7 +75,8 @@ const Login = () => {
       required
       />
       <Button>Login</Button>
-    </Form>
+      </Form>
+      {error && <ErrorMessage message="Something wrong, try again..."/>}
     </Container>
   );
 };

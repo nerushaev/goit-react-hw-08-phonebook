@@ -7,16 +7,18 @@ import NavAuth from "components/Phonebook/NavBar/NavBar";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "redux/auth/auth-operations";
-import { getIsLogin } from "redux/auth/auth-selectors";
+import { getError, getIsLogin } from "redux/auth/auth-selectors";
 import { Navigate } from "react-router";
 import { useSelector } from "react-redux";
+import ErrorMessage from "components/Phonebook/ErrorMessage/ErrorMessage";
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+  const error = useSelector(getError);
 
+  const dispatch = useDispatch();
   const nameId = useMemo(() => nanoid(), []);
   const emailId = useMemo(() => nanoid(), []);
   const passwordId = useMemo(() => nanoid(), []);
@@ -52,6 +54,7 @@ const Register = () => {
 
   return (
     <Container>
+    <ErrorMessage />
     <NavAuth>
     <Title nav>Register</Title>
     </NavAuth>
@@ -86,8 +89,9 @@ const Register = () => {
       title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
       required
       />
-      <Button>Login</Button>
-    </Form>
+        <Button>Login</Button>
+      </Form>
+      {error && <ErrorMessage message="Something wrong, try again..."/>}
     </Container>
   );
 };

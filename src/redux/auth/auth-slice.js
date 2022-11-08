@@ -23,9 +23,9 @@ const authSlice = createSlice({
       store.loading = false;
       store.isLogin = true;
     },
-    [signup.rejected]: (store, {payload}) => {
+    [signup.rejected]: (store, {error}) => {
       store.loading = false;
-      store.error = payload;
+      store.error = error;
     },
     [login.pending]: (store) => {
       store.loading = true;
@@ -37,9 +37,9 @@ const authSlice = createSlice({
       store.loading = false;
       store.isLogin = true;
     },
-    [login.rejected]: (store, {payload}) => {
+    [login.rejected]: (store, {error}) => {
       store.loading = false;
-      store.error = payload;
+      store.error = error;
     },
     [logout.pending]: (store) => {
       store.loading = true;

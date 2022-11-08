@@ -32,7 +32,7 @@ export default function NavAuth({ children }) {
       {isUserLogin && <NavUserInfo />}
       {isUserLogin && <StyledLink onClick={onLogout} to="/">Logout</StyledLink>}
       {!isUserLogin && <StyledLink to="/register">Register</StyledLink>}
-      {!isUserLogin &&  <StyledLink to="/login">Login</StyledLink>}
+      {!isUserLogin &&  <StyledLink  to="/login">Login</StyledLink>}
       </Navigation>
   )
 }
